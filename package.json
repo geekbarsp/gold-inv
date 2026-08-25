@@ -1,16 +1,21 @@
 {
-  "name": "gold-inventory-app",
-  "version": "0.1.0",
+  "name": "ng-inventory",
+  "version": "1.0.0",
+  "description": "Narciso Geronimo Jewelry Inventory desktop application",
+  "author": "geekbarsp",
+  "main": "desktop/main.mjs",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src scripts",
+    "lint": "eslint src scripts desktop",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "format:check": "prettier --check src scripts",
-    "hash-passcode": "node scripts/hash-passcode.mjs"
+    "hash-passcode": "node scripts/hash-passcode.mjs",
+    "desktop:prepare": "node scripts/prepare-desktop.mjs",
+    "desktop:build": "npm run build && npm run desktop:prepare && electron-builder --win nsis"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.4",
@@ -30,11 +35,54 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "electron": "43.4.1",
+    "electron-builder": "26.15.3",
     "eslint": "^9",
     "eslint-config-next": "16.3.2",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^3.2.6"
+  },
+  "build": {
+    "appId": "com.narcisogeronimo.nginventory",
+    "productName": "NG Inventory",
+    "artifactName": "Setup NG Inventory.${ext}",
+    "asar": true,
+    "directories": {
+      "output": "releases"
+    },
+    "files": [
+      "desktop/main.mjs",
+      "package.json",
+      "!node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "desktop/runtime",
+        "to": "app-server"
+      },
+      {
+        "from": "desktop/bootstrap-config.json",
+        "to": "bootstrap-config.json"
+      },
+      {
+        "from": "src/app/favicon.ico",
+        "to": "NG Inventory.ico"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "src/app/favicon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NG Inventory",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
+    }
   }
 }

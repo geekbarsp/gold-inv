@@ -35,6 +35,9 @@ yarn-error.log*
 !.env.example
 /supabase/.temp/
 /releases/
+/desktop/runtime/
+/desktop/bootstrap-config.json
+/dist/
 
 # local coding-agent instructions
 /AGENTS.md

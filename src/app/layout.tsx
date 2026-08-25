@@ -8,7 +8,7 @@ const display = Cormorant_Garamond({
 });
 const sans = Manrope({ variable: "--font-sans", subsets: ["latin"] });
 export const metadata: Metadata = {
-  title: "Narciso Geronimo Jewelry Inventory",
+  title: "NG Inventory",
   description: "Secure gold jewelry inventory and barcode management",
 };
 export const viewport: Viewport = {

@@ -36,7 +36,9 @@ export async function createSession(timeoutMinutes?: number) {
   ).toString("base64url");
   (await cookies()).set(COOKIE, `${payload}.${sign(payload)}`, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure:
+      process.env.NODE_ENV === "production" &&
+      process.env.DESKTOP_APP !== "1",
     sameSite: "strict",
     path: "/",
     maxAge,

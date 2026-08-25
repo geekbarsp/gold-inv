@@ -55,9 +55,15 @@ The SQL migration enables RLS on every public table and grants no browser roles.
 
 Deploy to any Node-compatible Next.js host and configure the same environment variables. Use HTTPS, keep `SUPABASE_SECRET_KEY`, `PASSCODE_HASH`, and `SESSION_SECRET` server-only, and apply migrations before the first request. Browser print provides label printing and Save as PDF.
 
-## Packaged Windows release
+## Windows desktop installer
 
-The production ZIP is a prebuilt Node.js application for Windows desktop use and responsive phone access. Extract it, run `SETUP-WINDOWS.cmd`, then run `START-WINDOWS.cmd`. The phone interface must be reached through HTTPS because production authentication uses Secure cookies and browsers require a secure context for camera access; plain LAN HTTP is not supported for mobile scanning.
+Build the private, self-contained Windows installer with:
+
+```powershell
+npm run desktop:build
+```
+
+The result is `releases\Setup NG Inventory.exe`. It installs **NG Inventory**, creates Desktop and Start Menu shortcuts, and includes its own runtime, so the destination PC does not need Node.js. The build reads the server credentials from the ignored `.env.local`; therefore, the generated installer is private and must not be uploaded to a public release or shared outside the authorized store computers.
 
 ## Operational notes
 
